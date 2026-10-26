@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+.Python
+venv/
+ENV/
+
+# Tests / tooling
+.pytest_cache/
+.cache
+.coverage
+htmlcov/
+.ipynb_checkpoints
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Data, indices and model artifacts -- all built locally, none of it belongs in git.
+# Anchored with a leading slash: these name directories the USER creates at the repo root. Unanchored,
+# `data/` matches a directory called `data` at any depth, which silently excluded vendored
+# `verl/trainer/config/data/legacy_data.yaml` -- a file `ppo_trainer.yaml` loads in its Hydra defaults
+# list, so a fresh clone failed to compose a config and could not train at all.
+/data/
+/indices/
+/corpus/
+/outputs/
+/runs/
+/checkpoints/
+/wandb/
+*.parquet
+*.pt
+*.ckpt
+*.safetensors
+
+# Service logs from scripts/serve_*.sh
+*.log
+
+# Build artifacts
+*.zip

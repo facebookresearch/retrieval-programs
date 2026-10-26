@@ -1,0 +1,45 @@
+# Python dependencies for RPL.
+#
+# torch and flash-attn are deliberately NOT listed: both need a platform-specific install (torch from the
+# CUDA-matched PyTorch index, flash-attn built for your GPU architecture). Install those first, then
+#     pip install -r requirements.txt
+# See the README's Install section.
+#
+# The RETRIEVER's dependencies are in requirements-retrieval.txt, not here. faiss and pyserini pull in heavy
+# pins that conflict with the training stack, so the retriever is usually served from its own environment --
+# it is a separate process reached over HTTP, so it does not have to share one. Installing both here works
+# too if the resolver is happy.
+
+# --- training (verl v0.8.0 is vendored in this repo; these are its dependencies) ---
+accelerate
+codetiming
+datasets
+dill
+hydra-core
+liger-kernel
+numpy<2.0.0
+packaging>=20.0
+pandas
+peft
+pyarrow>=19.0.0
+pybind11
+ray[default]
+tensordict>=0.8.0,<=0.10.0,!=0.9.0
+torchdata
+TransferQueue==0.1.7
+transformers==5.3.0
+vllm==0.20.2
+
+# --- the reranker service (runs in this environment) ---
+fastapi
+uvicorn
+pydantic
+
+# --- logging (verl writes to these) ---
+tensorboard
+wandb
+
+# --- answer normalisation used by the reward scorer ---
+latex2sympy2_extended
+math_verify
+pylatexenc

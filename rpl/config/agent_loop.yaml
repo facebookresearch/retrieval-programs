@@ -1,0 +1,11 @@
+# Copyright (c) Meta Platforms, Inc. and affiliates.
+# All rights reserved.
+#
+# This source code is licensed under the license found in the
+# LICENSE file in the root directory of this source tree.
+
+# Agent-loop registry for verl v0.8.0. Referenced via
+# actor_rollout_ref.rollout.agent.agent_loop_config_path. Each entry registers {name -> _target_}
+# into verl's agent-loop registry; select one with actor_rollout_ref.rollout.agent.default_agent_loop.
+- name: rpl
+  _target_: rpl.llm_agent.rpl_agent_loop.RPLAgentLoop

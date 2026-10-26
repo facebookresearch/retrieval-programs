@@ -1,0 +1,21 @@
+# Dependencies for the RETRIEVER service (scripts/serve_retriever.sh) and for building an index.
+#
+# Kept separate from requirements.txt because faiss and pyserini pull in heavy pins that can conflict with
+# the training stack. The retriever is a separate process reached over HTTP, so it is fine — often easier —
+# to give it its own environment. The reranker, by contrast, runs happily in the training environment.
+#
+# BM25 runs Lucene through Pyserini, so this also needs a JDK on PATH (JDK 21, e.g. Eclipse Temurin, with
+# JAVA_HOME set). We do not ship one.
+
+faiss-cpu        # install EXACTLY ONE of faiss-cpu / faiss-gpu. The GPU build is much faster but
+                 # FAISS shards the index across every visible GPU, so budget
+                 # index_size / n_gpus per card on top of whatever else is resident.
+pyserini         # BM25 / sparse backend
+transformers     # the E5 query encoder
+torch            # ditto -- install the build matching your CUDA first
+datasets
+fastapi
+uvicorn
+pydantic
+numpy<2.0.0
+tqdm

@@ -1,0 +1,62 @@
+# Build configuration for RPL (Retrieval Program Learning).
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rpl"
+version = "0.1.0"
+description = "Retrieval Program Learning: reinforcement learning over a programmable search interface"
+readme = {file = "README.md", content-type = "text/markdown"}
+requires-python = ">=3.10"
+
+license = {text = "CC-BY-NC; the vendored Search-R1 and verl code is Apache-2.0"}
+
+# Runtime dependencies are pinned in requirements.txt, which also documents why torch and flash-attn are
+# installed separately (both need a platform-specific build). Keep the two in sync.
+dependencies = [
+    "accelerate",
+    "codetiming",
+    "datasets",
+    "dill",
+    "fastapi",
+    "hydra-core",
+    "latex2sympy2_extended",
+    "liger-kernel",
+    "math_verify",
+    "numpy<2.0.0",
+    "packaging>=20.0",
+    "pandas",
+    "peft",
+    "pyarrow>=19.0.0",
+    "pybind11",
+    "pydantic",
+    "pylatexenc",
+    "ray[default]",
+    "tensorboard",
+    "tensordict>=0.8.0,<=0.10.0,!=0.9.0",
+    "torchdata",
+    "TransferQueue==0.1.7",
+    "transformers==5.3.0",
+    "uvicorn",
+    "vllm==0.20.2",
+    "wandb",
+]
+
+[project.optional-dependencies]
+# The dense and sparse retrieval services. `pyserini` additionally needs a JDK on PATH.
+retrieval = ["faiss-cpu", "pyserini", "tqdm"]
+dev = ["pytest"]
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+# Only these two trees are packages; `scripts` and `tools` are run as files, not imported.
+include = ["rpl*", "verl*"]
+
+[tool.setuptools.package-data]
+# verl reads its Hydra configs and its version string from inside the package at runtime.
+verl = ["version/*", "trainer/config/**/*.yaml"]
+rpl = ["config/*.yaml"]
