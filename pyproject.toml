@@ -40,7 +40,7 @@ dependencies = [
     "TransferQueue==0.1.7",
     "transformers==5.3.0",
     "uvicorn",
-    "vllm==0.20.2",
+    "vllm==0.31.0",
     "wandb",
 ]
 
